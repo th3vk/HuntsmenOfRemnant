@@ -1,0 +1,23 @@
+335 DAYS BEFORE THE FALL OF BEACON
+18:01 PM
+
+Dr. Krasinski's Journal - project AKX
+
+Entry 32
+
+We have finally managed to create a shield system for the AKX. 
+Hard-Light Dust doesn't care which part of the structure it created is hit. Therefore
+we need to make it smaller rather than bigger, otherwise we're stuck with Dust-consuming
+segments that protect nothing and if a stray claw hits it, the entire shield is down.
+That means we're much better off if we can use lots of small Hard-Light shields instead of 
+just one big shield. That way we can make it exactly the size of the body and we can 
+manage some of the smaller shields going down while others stay on. Better yet, we
+can turn them on just before the hit, reducing overall Dust usage.
+But how to we dispense the Dust? 
+The answer lies within our own bodies. The way humans perspire, AKX will be able to
+protect itself. Lots of really small holes all over the body, "pores", if you will,
+each using just a little Hard-Light Dust. The only problem is, turning on too many of
+those "pores" at once will overload the whole system, and without its shields, AKX
+is nothing more that a well-armed tin can. I guess we can implement a flight response
+if that happens, but that's not my field of expertise. I'm an engineer, not a code 
+monkey. Note to self - talk to the IT crowd about that.

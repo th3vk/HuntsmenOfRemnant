@@ -1,0 +1,16 @@
+330 DAYS BEFORE THE FALL OF BEACON
+13:33 PM
+
+Dr. Krasinski's Journal - project AKX
+
+Entry 35
+
+How do you instruct a robot to choose its own weapon, let alone make one?
+We've got a bit of every kingdom's armaments now, we're developing some
+prototypes here on site, that means we can test the AKX with every type of weapon
+there is. But a true Hunter doesn't use mass-produced weapons. We can't just
+give every AKX a pistol, that would just make them the next generation of 130's
+and that is not the goal of the project. 
+We could randomize the process, but Hunters don't choose their weapons at random.
+We could just upload the test data and let the AI choose, but the choice will
+always be the same, because the data will always be the same, that much I know.
