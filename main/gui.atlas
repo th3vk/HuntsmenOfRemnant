@@ -1,0 +1,27 @@
+images {
+  image: "/assets/images/GUI/button.png"
+}
+images {
+  image: "/assets/images/GUI/text_frame.png"
+}
+images {
+  image: "/assets/images/GUI/upgrade_frame.png"
+}
+images {
+  image: "/assets/images/GUI/Scroll_bottom.png"
+}
+images {
+  image: "/assets/images/GUI/Scroll_top.png"
+}
+images {
+  image: "/assets/images/GUI/Scroll_background_big.png"
+}
+images {
+  image: "/assets/images/GUI/Scroll_background_cut.png"
+}
+images {
+  image: "/assets/images/GUI/Scroll_borders.png"
+}
+margin: 0
+extrude_borders: 2
+inner_padding: 0
