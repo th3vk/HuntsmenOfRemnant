@@ -7,13 +7,15 @@ shared_state = 1
 [display]
 width = 1920
 height = 1080
-fullscreen = 1
+fullscreen = 0
+high_dpi = 1
 
 [android]
 input_method = HiddenInputField
 
 [project]
 title = HOR
+dependencies = https://github.com/subsoap/defos/archive/v2.5.0.zip
 
 [graphics]
 max_draw_calls = 4096

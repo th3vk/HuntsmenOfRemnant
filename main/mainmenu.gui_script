@@ -1,7 +1,12 @@
+local start_button
+local exit_button
+local load_button
+
 function init(self)
-	-- Add initialization code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
+	msg.post(".", "acquire_input_focus")
+	start_button = gui.get_node("button_new")
+	load_button = gui.get_node("button_load")
+	exit_button = gui.get_node("button_quit")
 end
 
 function final(self)
@@ -23,15 +28,32 @@ function on_message(self, message_id, message, sender)
 end
 
 function on_input(self, action_id, action)
-	-- Add input-handling code here. The game object this script is attached to
-	-- must have acquired input focus:
-	--
-	--    msg.post(".", "acquire_input_focus")
-	--
-	-- All mapped input bindings will be received. Mouse and touch input will
-	-- be received regardless of where on the screen it happened.
-	-- Learn more: https://defold.com/manuals/input/
-	-- Remove this function if not needed
+	if action_id == hash("LMB") and action.pressed then
+		if gui.pick_node(exit_button, action.x, action.y) then
+			gui.set_color(exit_button, vmath.vector4(255/255, 239/255, 122/255, 1))
+		end
+		if gui.pick_node(start_button, action.x, action.y) then
+			gui.set_color(start_button, vmath.vector4(255/255, 239/255, 122/255, 1))
+		end
+		if gui.pick_node(load_button, action.x, action.y) then
+			gui.set_color(load_button, vmath.vector4(255/255, 239/255, 122/255, 1))
+		end
+	end
+	
+	if action_id == hash("LMB") and action.released then
+		if gui.pick_node(exit_button, action.x, action.y) then
+			sys.exit(0)
+		end
+		if gui.pick_node(start_button, action.x, action.y) then
+			--give faction choice menu
+		end
+		if gui.pick_node(load_button, action.x, action.y) then
+			--scan folder for saved games, give a list of them, load
+		end
+		gui.set_color(exit_button, vmath.vector4(0, 1, 1, 1))
+		gui.set_color(start_button, vmath.vector4(0, 1, 1, 1))
+		gui.set_color(load_button, vmath.vector4(0, 1, 1, 1))
+	end
 end
 
 function on_reload(self)
