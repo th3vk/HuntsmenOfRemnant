@@ -1,3 +1,7 @@
+local menu_gui
+local load_gui
+local choice_gui
+local game_gui
 function init(self)
 	msg.post(".", "acquire_input_focus")
 	msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
@@ -6,7 +10,38 @@ function init(self)
 	--defos.set_fullscreen(bool_value)
 	defos.toggle_fullscreen()
 	bool_value = defos.is_fullscreen()
-	print(bool_value)
+	menu_gui = factory.create("#mainmenu_factory")
+end
+
+function on_message(self, message_id, message)
+	if message_id == hash("start") then
+		go.delete(menu_gui)
+		choice_gui = factory.create("#factionchoice_factory")
+	end	
+	if message_id == hash("choice_back") then
+		go.delete(choice_gui)
+		menu_gui = factory.create("#mainmenu_factory")
+	end	
+	if message_id == hash("load_back") then
+		go.delete(load_gui)
+		menu_gui = factory.create("#mainmenu_factory")
+	end	
+	if message_id == hash("load") then
+		go.delete(menu_gui)
+		load_gui = factory.create("#loadgame_factory")
+	end	
+	if message_id == hash("A") then
+		sound.play("sounds#AKX_Shot")
+	end	
+	if message_id == hash("M") then
+		sound.play("sounds#Asker_shot")
+	end	
+	if message_id == hash("S") then
+		sound.play("sounds#Rust_reload")
+	end	
+	if message_id == hash("W") then
+		sound.play("sounds#Violetta_reload")
+	end	
 end
 
 function on_input(self, action_id, action)

@@ -1,0 +1,74 @@
+image: "/assets/images/Player/Violetta/Violetta_anims.png"
+tile_width: 100
+tile_height: 100
+tile_margin: 0
+tile_spacing: 0
+collision: ""
+material_tag: "tile"
+collision_groups: "default"
+animations {
+  id: "damaged_melee"
+  start_tile: 33
+  end_tile: 35
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 30
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "damaged_ranged"
+  start_tile: 29
+  end_tile: 31
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 30
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "melee_attack"
+  start_tile: 26
+  end_tile: 29
+  playback: PLAYBACK_ONCE_PINGPONG
+  fps: 30
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "ranged_attack"
+  start_tile: 18
+  end_tile: 20
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 30
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "reload"
+  start_tile: 1
+  end_tile: 17
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "swap_to_melee"
+  start_tile: 22
+  end_tile: 29
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 9
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "swap_to_ranged"
+  start_tile: 22
+  end_tile: 29
+  playback: PLAYBACK_ONCE_BACKWARD
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+extrude_borders: 2
+inner_padding: 0
+sprite_trim_mode: SPRITE_TRIM_MODE_OFF

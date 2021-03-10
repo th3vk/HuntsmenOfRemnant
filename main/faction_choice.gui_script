@@ -1,0 +1,102 @@
+local atlas
+local mtc
+local salem
+local whitefang
+local start_button
+local back_button
+
+function init(self)
+	msg.post(".", "acquire_input_focus")
+	atlas = gui.get_node("Black_Ops")
+	mtc = gui.get_node("MTC_Mercs")
+	salem = gui.get_node("Salem_Agents")
+	whitefang = gui.get_node("White_Fang")
+	start_button = gui.get_node("button_start")
+	back_button = gui.get_node("button_back")
+end
+
+function final(self)
+	-- Add finalization code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function update(self, dt)
+	-- Add update code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function on_message(self, message_id, message, sender)
+	-- Add message-handling code here
+	-- Learn more: https://defold.com/manuals/message-passing/
+	-- Remove this function if not needed
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash("LMB") and action.pressed then
+		if gui.pick_node(back_button, action.x, action.y) then
+			gui.set_color(back_button, vmath.vector4(255/255, 239/255, 122/255, 1))
+			msg.post("/go#main", hash("choice_back"))
+		end
+		if gui.pick_node(start_button, action.x, action.y) then
+			gui.set_color(start_button, vmath.vector4(255/255, 239/255, 122/255, 1))
+			
+		end
+
+		local box = gui.get_node("box")
+		local box1 = gui.get_node("box1")
+		local box2 = gui.get_node("box2")
+		local box3 = gui.get_node("box3")
+		local start_hunt = gui.get_node("Starting_Huntsman")
+		local start_hunt_anims = gui.get_node("animations")
+		if gui.pick_node(atlas, action.x, action.y) then
+			gui.play_flipbook(box, "frame_selected")
+			gui.play_flipbook(box1, "frame_unselected")
+			gui.play_flipbook(box2, "frame_unselected")
+			gui.play_flipbook(box3, "frame_unselected")
+			gui.play_flipbook(start_hunt, "AKX")
+			gui.set_texture(start_hunt_anims, "AKX_anims")
+			gui.play_flipbook(start_hunt_anims, "reload")
+			msg.post("/go#main", hash("A"))
+		end
+		if gui.pick_node(mtc, action.x, action.y) then
+			gui.play_flipbook(box, "frame_unselected")
+			gui.play_flipbook(box1, "frame_selected")
+			gui.play_flipbook(box2, "frame_unselected")
+			gui.play_flipbook(box3, "frame_unselected")
+			gui.play_flipbook(start_hunt, "Asker")
+			gui.set_texture(start_hunt_anims, "Asker_anims")
+			gui.play_flipbook(start_hunt_anims, "ranged_attack")
+			msg.post("/go#main", hash("M"))
+		end
+		if gui.pick_node(salem, action.x, action.y) then
+			gui.play_flipbook(box, "frame_unselected")
+			gui.play_flipbook(box1, "frame_unselected")
+			gui.play_flipbook(box2, "frame_selected")
+			gui.play_flipbook(box3, "frame_unselected")
+			gui.play_flipbook(start_hunt, "Rust")
+			gui.set_texture(start_hunt_anims, "Rust_anims")
+			gui.play_flipbook(start_hunt_anims, "reload")
+			msg.post("/go#main", hash("S"))
+		end
+		if gui.pick_node(whitefang, action.x, action.y) then
+			gui.play_flipbook(box, "frame_unselected")
+			gui.play_flipbook(box1, "frame_unselected")
+			gui.play_flipbook(box2, "frame_unselected")
+			gui.play_flipbook(box3, "frame_selected")
+			gui.play_flipbook(start_hunt, "Violetta")
+			gui.set_texture(start_hunt_anims, "Violetta_anims")
+			gui.play_flipbook(start_hunt_anims, "reload")
+			msg.post("/go#main", hash("W"))
+		end
+	end
+
+	
+end
+
+function on_reload(self)
+	-- Add reload-handling code here
+	-- Learn more: https://defold.com/manuals/hot-reload/
+	-- Remove this function if not needed
+end

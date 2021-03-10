@@ -45,6 +45,7 @@ function on_input(self, action_id, action)
 			sys.exit(0)
 		end
 		if gui.pick_node(start_button, action.x, action.y) then
+			msg.post("/go#main", hash("start"))
 			--give faction choice menu
 		end
 		if gui.pick_node(load_button, action.x, action.y) then
