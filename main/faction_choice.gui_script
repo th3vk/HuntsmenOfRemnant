@@ -6,6 +6,7 @@ local start_button
 local back_button
 local huntsman_desc
 local faction_desc
+local faction
 
 function init(self)
 	msg.post(".", "acquire_input_focus")
@@ -17,6 +18,7 @@ function init(self)
 	back_button = gui.get_node("button_back")
 	huntsman_desc = gui.get_node("huntsman_desc")
 	faction_desc = gui.get_node("faction_desc")
+	faction = -1
 end
 
 function final(self)
@@ -43,9 +45,11 @@ function on_input(self, action_id, action)
 			gui.set_color(back_button, vmath.vector4(255/255, 239/255, 122/255, 1))
 			msg.post("/go#main", hash("choice_back"))
 		end
-		if gui.pick_node(start_button, action.x, action.y) then
-			gui.set_color(start_button, vmath.vector4(255/255, 239/255, 122/255, 1))
-			
+		if gui.pick_node(start_button, action.x, action.y)  then
+			if faction > -1 then
+				gui.set_color(start_button, vmath.vector4(255/255, 239/255, 122/255, 1))
+				msg.post("/go#main", hash("pick_squad"), {fac = faction})
+			end
 		end
 
 		local box = gui.get_node("box")
@@ -64,6 +68,7 @@ function on_input(self, action_id, action)
 			gui.play_flipbook(start_hunt_anims, "reload")
 			gui.set_text(huntsman_desc, "Starting Huntsman: AKX \nAtlesian Knight - eXperimental. The first ever artificial Huntsman in Remnant, it's stronger and smarter than any human. Though lacking a true Semblance and Aura, AKX has a few tricks that make up for it.\n\nArmaments: Heavy Machine Gun/Battle Chain\n\nSemblance: Dash")
 			gui.set_text(faction_desc, "Good evening, Specialist. Your mission, should you choose to accept it, is to scout the island located at the coordinates attached and recover the AI prototype code from the black site located on the northern part of the island. If you are captured, Atlas will deny any knowledge of your actions. There are no known friendly forces on the island, so anyone you encounter are to be terminated. You can select three Specialists for your squad. Your squad is to report to Atlas City Skyport, hangar 9, at 0400, after which you will be transported to the island city of Creek Park via a Manta Light transport. Good luck.")
+			faction = 0
 		--	msg.post("/go#main", hash("A"))
 		end
 		if gui.pick_node(mtc, action.x, action.y) then
@@ -76,6 +81,7 @@ function on_input(self, action_id, action)
 			gui.play_flipbook(start_hunt_anims, "ranged_attack")
 			gui.set_text(huntsman_desc, "Starting Huntsman: Asker Preto. \nAn ex-Atlesian Specialist, he's been poached by the Mistral Trading Company. His happy-go-lucky attitude might be irritating and his paychecks are certainly outrageous, but he delivers, and that's all the MTC needs.\n\nArmaments: Sniper Rifle/Twin Stilettos\n\nSemblance: Overweight")
 			gui.set_text(faction_desc, "Another contract from your favourite Dust trading company! You've heard about Merlot Industries, right? Grimm studies, Mountain Glenn disaster, built robots before it was cool? Our R&D department says there's some island with an old MI facility, and inside that facility, there's this serum they used to subdue and dissect live Grimm. We're willing to pay top Lien for a sample of the serum. Pick your team and head over to Argus. There'll be a company submarine waiting for you. We'll provide your payment in cash, on delivery.")
+			faction = 1
 		--	msg.post("/go#main", hash("M"))
 		end
 		if gui.pick_node(salem, action.x, action.y) then
@@ -88,6 +94,7 @@ function on_input(self, action_id, action)
 			gui.play_flipbook(start_hunt_anims, "reload")
 			gui.set_text(huntsman_desc, "Starting Huntsman: Rust Rhum. \nA veteran Huntsman from a small town in Vale, Rust made a deal with the Devil: he does what Salem says and his town stays safe from the Grimm. She's kept her end of the bargain so far. So did he.\n\nArmaments: Assault Rifle/Jags\n\nSemblance: Feedback")
 			gui.set_text(faction_desc, "I've got a new request for you, Rust. You'll need to travel to an island, far out in the ocean. There, you'll need to find a tower, that supports communication between the Kingdoms. Don't worry, you won't need to do any harm to it. I just need access to the communications. Remember, the fate of your town is in your hands.")
+			faction = 2
 			--	msg.post("/go#main", hash("S"))
 		end
 		if gui.pick_node(whitefang, action.x, action.y) then
@@ -100,6 +107,7 @@ function on_input(self, action_id, action)
 			gui.play_flipbook(start_hunt_anims, "reload")
 			gui.set_text(huntsman_desc, "Starting Huntsman: Violetta Krovina. \nA walrus Faunus, Violetta joined the White Fang in Vale after her Huntsman graduation, but became disillusioned in their peaceful ways. She wants to make humanity pay in blood. And she's not the only one.\n\nArmaments: Sub-Machine Gun/Saber\n\nSemblance: Grasp")
 			gui.set_text(faction_desc, "Vi, it's Adam. We've lost another camp. We need a place to hide, somewhere good, somewhere the humans won't find us. I've sent scouts to the desert and to the Emerald Forest, but they're just a distraction. I need you to take someone you can trust and find an island north of the shore. Clear it out and destroy the local CCT. Then, come back to me. We'll move everyone there and we'll finally have something. And then we can start our payback.")
+			faction = 3
 		--	msg.post("/go#main", hash("W"))
 		end
 	end

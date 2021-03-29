@@ -1,0 +1,121 @@
+local faction = -1 --0=atlas 1=mistral 2=salem 3=white fang
+local h1
+local h2
+local h3
+local h4
+local h5
+local h6
+local t1
+local t2
+local t3
+local t4
+local t5
+local t6
+local button_next
+local button_back
+function init(self)
+	msg.post(".", "acquire_input_focus")
+end
+
+function initiate(self)
+	button_back = gui.get_node("button_back")
+	button_next = gui.get_node("button_start")
+	h1 = gui.get_node("Huntsman_1")
+	h2 = gui.get_node("Huntsman_2")
+	h3 = gui.get_node("Huntsman_3")
+	h4 = gui.get_node("Huntsman_4")
+	h5 = gui.get_node("Huntsman_5")
+	h6 = gui.get_node("Huntsman_6")
+	t1 = gui.get_node("text1")
+	t2 = gui.get_node("text2")
+	t3 = gui.get_node("text3")
+	t4 = gui.get_node("text4")
+	t5 = gui.get_node("text5")
+	t6 = gui.get_node("text6")
+	if faction == 0 then 
+		gui.play_flipbook(h1, "AKX")
+		gui.play_flipbook(h2, "AKX")
+		gui.play_flipbook(h3, "AKX")
+		gui.play_flipbook(h4, "AKX")
+		gui.play_flipbook(h5, "AKX")
+		gui.play_flipbook(h6, "AKX")
+		gui.set_text(t1, "AKX")
+		gui.set_text(t2, "AKX")
+		gui.set_text(t3, "AKX")
+		gui.set_text(t4, "AKX")
+		gui.set_text(t5, "AKX")
+		gui.set_text(t6, "AKX")
+	elseif faction == 1 then
+		gui.play_flipbook(h1, "Asker")
+		gui.play_flipbook(h2, "Asker")
+		gui.play_flipbook(h3, "Asker")
+		gui.play_flipbook(h4, "Asker")
+		gui.play_flipbook(h5, "Asker")
+		gui.play_flipbook(h6, "Asker")
+		gui.set_text(t1, "Asker Preto")
+		gui.set_text(t2, "Asker Preto")
+		gui.set_text(t3, "Asker Preto")
+		gui.set_text(t4, "Asker Preto")
+		gui.set_text(t5, "Asker Preto")
+		gui.set_text(t6, "Asker Preto")
+	elseif faction == 2 then
+		gui.play_flipbook(h1, "Rust")
+		gui.play_flipbook(h2, "Rust")
+		gui.play_flipbook(h3, "Rust")
+		gui.play_flipbook(h4, "Rust")
+		gui.play_flipbook(h5, "Rust")
+		gui.play_flipbook(h6, "Rust")
+		gui.set_text(t1, "Rust Rhum")
+		gui.set_text(t2, "Rust Rhum")
+		gui.set_text(t3, "Rust Rhum")
+		gui.set_text(t4, "Rust Rhum")
+		gui.set_text(t5, "Rust Rhum")
+		gui.set_text(t6, "Rust Rhum")
+	elseif faction == 3 then
+		gui.play_flipbook(h1, "Violetta")
+		gui.play_flipbook(h2, "Violetta")
+		gui.play_flipbook(h3, "Violetta")
+		gui.play_flipbook(h4, "Violetta")
+		gui.play_flipbook(h5, "Violetta")
+		gui.play_flipbook(h6, "Violetta")
+		gui.set_text(t1, "Violetta Krovina")
+		gui.set_text(t2, "Violetta Krovina")
+		gui.set_text(t3, "Violetta Krovina")
+		gui.set_text(t4, "Violetta Krovina")
+		gui.set_text(t5, "Violetta Krovina")
+		gui.set_text(t6, "Violetta Krovina")
+	end
+end
+
+function final(self)
+	-- Add finalization code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function update(self, dt)
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("fac") then
+		faction = message.fac
+		initiate(self)
+	end
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash("LMB") and action.pressed then
+		if gui.pick_node(button_back, action.x, action.y) then
+			gui.set_color(button_back, vmath.vector4(255/255, 239/255, 122/255, 1))
+			msg.post("/go#main", hash("back_squad"))
+		end
+
+		
+	end
+end
+
+function on_reload(self)
+	-- Add reload-handling code here
+	-- Learn more: https://defold.com/manuals/hot-reload/
+	-- Remove this function if not needed
+end
