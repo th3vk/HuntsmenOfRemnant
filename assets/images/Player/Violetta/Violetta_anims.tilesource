@@ -25,6 +25,24 @@ animations {
   flip_vertical: 0
 }
 animations {
+  id: "idle_melee"
+  start_tile: 29
+  end_tile: 29
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 30
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "idle_ranged"
+  start_tile: 17
+  end_tile: 17
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 30
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
   id: "melee_attack"
   start_tile: 26
   end_tile: 29
