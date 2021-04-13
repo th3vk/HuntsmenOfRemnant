@@ -1,0 +1,97 @@
+local ranged = true
+go.property("STR", 0) --strength
+go.property("ACC", 0) --accuracy
+go.property("SPD", 0) --speed
+go.property("WTM", 0) --weight in melee
+go.property("WTR", 0) --weight in ranged
+go.property("DMGM", 0) --damage in melee form
+go.property("DMGR", 0) --damage in ranged form
+go.property("SHOTS", 0)
+go.property("MAXRNG", 0) --max range
+go.property("MINRNG", 0) --min range
+go.property("SPR", 0) --spread
+function init(self)
+	-- Add initialization code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function final(self)
+	-- Add finalization code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function update(self, dt)
+	-- Add update code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function on_message(self, message_id, message, sender)
+	math.randomseed(os.time())
+	if message_id == hash("selected") then
+		sprite.play_flipbook("#sprite1", "frame_selected")
+	end	
+	if message_id == hash("unselected") then
+		sprite.play_flipbook("#sprite1", "frame_unselected")
+	end
+	if message_id == hash("move") then
+		sprite.play_flipbook("#sprite2", "anim")
+		dest = message.destination
+		dest.x = dest.x/100+25
+		dest.y = dest.y/100+25
+		msg.post(message.gui, "print", {line = "moved to square ".. dest.x ..";"..dest.y})
+	end
+	if message_id == hash("attack") and ranged == true then
+		sprite.play_flipbook("#sprite", "ranged_attack")
+		sound.play("#shot")
+		seed = go.get_position("/mouse#mouse")
+		seed = seed.x
+		math.randomseed(os.time())
+		print(os.time())
+		for var = 1, self.SHOTS, 1 do
+			local cth = self.ACC - (self.SPR * 10 * var) - (self.WTR*var/10)
+			local hit = math.random(0,100)
+			local hit = math.random(0,100)
+			msg.post(message.gui, "print", {line = "Rolled "..hit.." with needed roll below "..cth.." to hit the target"})
+		end
+	end
+	if message_id == hash("attack") and ranged == false then
+		sprite.play_flipbook("#sprite", "melee_attack")
+		seed = go.get_position("/mouse#mouse")
+		seed = seed.x
+		math.randomseed(os.time())
+		print(os.time())
+		local cth = (self.SPD + self.STR)/2 - (self.WTM*100/self.STR)
+		local hit = math.random(0,100)
+		local hit = math.random(0,100)
+		msg.post(message.gui, "print", {line = "Rolled "..hit.." with needed roll below "..cth.." to hit the target"})
+	end
+	if message_id == hash("melee") then 
+		ranged = false
+		sprite.play_flipbook("#sprite", "swap_to_melee")
+	end
+	if message_id == hash("ranged") then 
+		ranged = true
+		sprite.play_flipbook("#sprite", "swap_to_ranged")
+	end
+end
+
+function on_input(self, action_id, action)
+	-- Add input-handling code here. The game object this script is attached to
+	-- must have acquired input focus:
+	--
+	--    msg.post(".", "acquire_input_focus")
+	--
+	-- All mapped input bindings will be received. Mouse and touch input will
+	-- be received regardless of where on the screen it happened.
+	-- Learn more: https://defold.com/manuals/input/
+	-- Remove this function if not needed
+end
+
+function on_reload(self)
+	-- Add reload-handling code here
+	-- Learn more: https://defold.com/manuals/hot-reload/
+	-- Remove this function if not needed
+end

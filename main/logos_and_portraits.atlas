@@ -27,7 +27,7 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/images/GUI/White_Fang.png"
+  image: "/assets/images/GUI/White_Fang_Logo.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
@@ -40,6 +40,14 @@ images {
 }
 images {
   image: "/assets/images/Maps/Screen_Texture.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/images/GUI/emptyspace.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/images/GUI/ticked.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 margin: 0

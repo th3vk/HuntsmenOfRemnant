@@ -3,12 +3,12 @@ local load_gui
 local choice_gui
 local game_gui
 local squad_gui
+local play_collection
 function init(self)
-	msg.post(".", "acquire_input_focus")
+	msg.post(".", "release_input_focus")
 	msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
 	msg.post("/Camera#camera", "acquire_camera_focus")
 	local bool_value = true
-	--defos.set_fullscreen(bool_value)
 	defos.toggle_fullscreen()
 	bool_value = defos.is_fullscreen()
 	menu_gui = factory.create("#mainmenu_factory")
@@ -40,6 +40,13 @@ function on_message(self, message_id, message)
 		go.delete(squad_gui)
 		choice_gui = factory.create("#factionchoice_factory")
 	end
+	if message_id == hash("deploy_squad") then
+		go.delete(squad_gui)
+		game_gui = factory.create("#ingame_factory")
+		msg.post(game_gui, "deploy", {fac = message.fac, squad = message.squad})
+		msg.post("/mouse#mouse", "gui", {gui = game_gui})
+		msg.post("/Map#Loadmap", "deploy", {fac = message.fac, squad = message.squad, gui = game_gui})
+	end	
 	
 	--these are for animation-sound syncing
 	if message_id == hash("A") then
@@ -54,10 +61,4 @@ function on_message(self, message_id, message)
 	if message_id == hash("W") then
 		sound.play("sounds#Violetta_reload")
 	end	
-end
-
-function on_input(self, action_id, action)
-	if action_id == hash("LMB") and action.pressed then
-		print("Touch!")
-	end
 end

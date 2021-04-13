@@ -1,3 +1,7 @@
+local moving_up
+local moving_down
+local moving_left
+local moving_right
 function init(self)
 	
 end
@@ -12,9 +16,37 @@ function update(self, dt)
 	-- Remove this function if not needed
 end
 
+
 function on_message(self, message_id, message, sender)
-	-- Add message-handling code here
-	-- Remove this function if not needed
+	local newpos = go.get_position("/Camera#camera")
+	if message_id == hash("moveright") then
+		newpos = go.get_position("/Camera#camera")
+		newpos.x = newpos.x + 25
+		if newpos.x < 567 then 
+			go.set_position(newpos, "/Camera#camera")
+		end
+	end
+	if message_id == hash("moveleft") then
+		newpos = go.get_position("/Camera#camera")
+		newpos.x = newpos.x - 25
+		if newpos.x > -2476 then
+			go.set_position(newpos, "/Camera#camera")
+		end
+	end
+	if message_id == hash("moveup") then
+		newpos = go.get_position("/Camera#camera")
+		newpos.y = newpos.y + 25
+		if newpos.y < 1415 then 
+			go.set_position(newpos, "/Camera#camera")
+		end
+	end
+	if message_id == hash("movedown") then
+		newpos = go.get_position("/Camera#camera")
+		newpos.y = newpos.y - 25
+		if newpos.y > -2801 then 
+			go.set_position(newpos, "/Camera#camera")
+		end
+	end
 end
 
 function on_input(self, action_id, action)

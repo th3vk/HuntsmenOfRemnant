@@ -44,11 +44,13 @@ function on_input(self, action_id, action)
 		if gui.pick_node(back_button, action.x, action.y) then
 			gui.set_color(back_button, vmath.vector4(255/255, 239/255, 122/255, 1))
 			msg.post("/go#main", hash("choice_back"))
+			msg.post(".", "release_input_focus")
 		end
 		if gui.pick_node(start_button, action.x, action.y)  then
 			if faction > -1 then
 				gui.set_color(start_button, vmath.vector4(255/255, 239/255, 122/255, 1))
 				msg.post("/go#main", hash("pick_squad"), {fac = faction})
+				msg.post(".", "release_input_focus")
 			end
 		end
 

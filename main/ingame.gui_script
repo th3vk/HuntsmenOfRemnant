@@ -1,0 +1,306 @@
+local w1,w2,w3,w4
+local p1,p2,p3,p4
+local pf1,pf2,pf3,pf4
+local ranged1 = true
+local ranged2 = true
+local ranged3 = true
+local ranged4 = true
+local lines = {}
+local faction = 0
+local huntsmen = {}
+
+function init(self)
+	msg.post(".", "acquire_input_focus")
+	w1 = gui.get_node("Weapon_1")
+	w2 = gui.get_node("Weapon_2")
+	w3 = gui.get_node("Weapon_3")
+	w4 = gui.get_node("Weapon_4")
+	p1 = gui.get_node("Portrait_1")
+	p2 = gui.get_node("Portrait_2")
+	p3 = gui.get_node("Portrait_3")
+	p4 = gui.get_node("Portrait_4")
+	pf1 = gui.get_node("Portrait_1_frame")
+	pf2 = gui.get_node("Portrait_2_frame")
+	pf3 = gui.get_node("Portrait_3_frame")
+	pf4 = gui.get_node("Portrait_4_frame")
+	lines[1] = gui.get_node("text1")
+	lines[2] = gui.get_node("text2")
+	lines[3] = gui.get_node("text3")
+	lines[4] = gui.get_node("text4")
+	lines[5] = gui.get_node("text5")
+	lines[6] = gui.get_node("text6")
+	lines[7] = gui.get_node("text7")
+	lines[8] = gui.get_node("text8")
+	lines[9] = gui.get_node("text9")
+	lines[10] = gui.get_node("text10")
+	lines[11] = gui.get_node("text11")
+	lines[12] = gui.get_node("text12")
+	lines[13] = gui.get_node("text13")
+	lines[14] = gui.get_node("text14")
+end
+
+function final(self)
+	-- Add finalization code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function update(self, dt)
+	-- Add update code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("print") then
+		gui.set_text(lines[14], gui.get_text(lines[13]))
+		gui.set_text(lines[13], gui.get_text(lines[12]))
+		gui.set_text(lines[12], gui.get_text(lines[11]))
+		gui.set_text(lines[11], gui.get_text(lines[10]))
+		gui.set_text(lines[10], gui.get_text(lines[9]))
+		gui.set_text(lines[9], gui.get_text(lines[8]))
+		gui.set_text(lines[8], gui.get_text(lines[7]))
+		gui.set_text(lines[7], gui.get_text(lines[6]))
+		gui.set_text(lines[6], gui.get_text(lines[5]))
+		gui.set_text(lines[5], gui.get_text(lines[4]))
+		gui.set_text(lines[4], gui.get_text(lines[3]))
+		gui.set_text(lines[3], gui.get_text(lines[2]))
+		gui.set_text(lines[2], gui.get_text(lines[1]))
+		gui.set_text(lines[1], message.line)
+	end	
+	if message_id == hash("receive_huntsmen") then
+		huntsmen[1] = message.huntsman1
+		huntsmen[2] = message.huntsman2
+		huntsmen[3] = message.huntsman3
+		huntsmen[4] = message.huntsman4
+	end
+	if message_id == hash("deploy") then
+		faction = message.fac
+		if message.fac == 0 then
+			gui.play_flipbook(w1, "HMG")
+			gui.play_flipbook(w2, "HMG")
+			gui.play_flipbook(w3, "HMG")
+			gui.play_flipbook(w4, "HMG")
+			gui.play_flipbook(p1, "AKX")
+			gui.play_flipbook(p2, "AKX")
+			gui.play_flipbook(p3, "AKX")
+			gui.play_flipbook(p4, "AKX")			
+		elseif message.fac == 1 then
+			gui.play_flipbook(p1, "Asker")
+			gui.play_flipbook(p2, "Asker")
+			gui.play_flipbook(p3, "Asker")
+			gui.play_flipbook(p4, "Asker")
+			gui.play_flipbook(w1, "SR")
+			gui.play_flipbook(w2, "SR")
+			gui.play_flipbook(w3, "SR")
+			gui.play_flipbook(w4, "SR")
+		elseif message.fac == 2 then
+			gui.play_flipbook(p1, "Rust")
+			gui.play_flipbook(p2, "Rust")
+			gui.play_flipbook(p3, "Rust")
+			gui.play_flipbook(p4, "Rust")
+			gui.play_flipbook(w1, "AR")
+			gui.play_flipbook(w2, "AR")
+			gui.play_flipbook(w3, "AR")
+			gui.play_flipbook(w4, "AR")
+		elseif message.fac == 3 then
+			gui.play_flipbook(p1, "Violetta")
+			gui.play_flipbook(p2, "Violetta")
+			gui.play_flipbook(p3, "Violetta")
+			gui.play_flipbook(p4, "Violetta")
+			gui.play_flipbook(w1, "SMG")
+			gui.play_flipbook(w2, "SMG")
+			gui.play_flipbook(w3, "SMG")
+			gui.play_flipbook(w4, "SMG")			
+		end
+	end
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash("LMB") and action.pressed then
+		--select the huntsman by clicking their portrait
+	if gui.pick_node(pf1, action.x, action.y) then
+		gui.play_flipbook(pf1, "frame_selected")
+		gui.play_flipbook(pf2, "frame_unselected")
+		gui.play_flipbook(pf3, "frame_unselected")
+		gui.play_flipbook(pf4, "frame_unselected")
+		msg.post(huntsmen[1], "selected")
+		msg.post(huntsmen[2], "unselected")
+		msg.post(huntsmen[3], "unselected")
+		msg.post(huntsmen[4], "unselected")
+		msg.post("/mouse#mouse", "selected", {obj = huntsmen[1]})
+	end
+	if gui.pick_node(pf2, action.x, action.y) then
+		gui.play_flipbook(pf1, "frame_unselected")
+		gui.play_flipbook(pf2, "frame_selected")
+		gui.play_flipbook(pf3, "frame_unselected")
+		gui.play_flipbook(pf4, "frame_unselected")
+		msg.post(huntsmen[1], "unselected")
+		msg.post(huntsmen[2], "selected")
+		msg.post(huntsmen[3], "unselected")
+		msg.post(huntsmen[4], "unselected")
+		msg.post("/mouse#mouse", "selected", {obj = huntsmen[2]})
+	end
+	if gui.pick_node(pf3, action.x, action.y) then
+		gui.play_flipbook(pf1, "frame_unselected")
+		gui.play_flipbook(pf2, "frame_unselected")
+		gui.play_flipbook(pf3, "frame_selected")
+		gui.play_flipbook(pf4, "frame_unselected")
+		msg.post(huntsmen[1], "unselected")
+		msg.post(huntsmen[2], "unselected")
+		msg.post(huntsmen[3], "selected")
+		msg.post(huntsmen[4], "unselected")
+		msg.post("/mouse#mouse", "selected", {obj = huntsmen[3]})
+	end
+	if gui.pick_node(pf4, action.x, action.y) then
+		gui.play_flipbook(pf1, "frame_unselected")
+		gui.play_flipbook(pf2, "frame_unselected")
+		gui.play_flipbook(pf3, "frame_unselected")
+		gui.play_flipbook(pf4, "frame_selected")
+		msg.post(huntsmen[1], "unselected")
+		msg.post(huntsmen[2], "unselected")
+		msg.post(huntsmen[3], "unselected")
+		msg.post(huntsmen[4], "selected")
+		msg.post("/mouse#mouse", "selected", {obj = huntsmen[4]})
+	end
+	--now for the weapons
+	if gui.pick_node(w1, action.x, action.y) then
+		if ranged1 == true then
+			ranged1 = false
+			msg.post(huntsmen[1], "melee")
+			if faction == 0 then 
+				gui.play_flipbook(w1, "HMG_Chain")
+			end
+			if faction == 1 then 
+				gui.play_flipbook(w1, "SR_Stilettos")
+			end
+			if faction == 2 then 
+				gui.play_flipbook(w1, "AR_Jags")
+			end
+			if faction == 3 then 
+				gui.play_flipbook(w1, "SMG_Saber")
+			end
+		else
+			ranged1 = true
+			msg.post(huntsmen[1], "ranged")
+			if faction == 0 then 
+				gui.play_flipbook(w1, "HMG")
+			end
+			if faction == 1 then 
+				gui.play_flipbook(w1, "SR")
+			end
+			if faction == 2 then 
+				gui.play_flipbook(w1, "AR")
+			end
+			if faction == 3 then 
+				gui.play_flipbook(w1, "SMG")
+			end
+		end
+	end
+	if gui.pick_node(w2, action.x, action.y) then
+		if ranged2 == true then
+			ranged2 = false
+			msg.post(huntsmen[2], "melee")
+			if faction == 0 then 
+				gui.play_flipbook(w2, "HMG_Chain")
+			end
+			if faction == 1 then 
+				gui.play_flipbook(w2, "SR_Stilettos")
+			end
+			if faction == 2 then 
+				gui.play_flipbook(w2, "AR_Jags")
+			end
+			if faction == 3 then 
+				gui.play_flipbook(w2, "SMG_Saber")
+			end
+		else
+			ranged2 = true
+			msg.post(huntsmen[2], "ranged")
+			if faction == 0 then 
+				gui.play_flipbook(w2, "HMG")
+			end
+			if faction == 1 then 
+				gui.play_flipbook(w2, "SR")
+			end
+			if faction == 2 then 
+				gui.play_flipbook(w2, "AR")
+			end
+			if faction == 3 then 
+				gui.play_flipbook(w2, "SMG")
+			end
+		end
+	end
+	if gui.pick_node(w3, action.x, action.y) then
+		if ranged3 == true then
+			ranged3 = false
+			msg.post(huntsmen[3], "melee")
+			if faction == 0 then 
+				gui.play_flipbook(w3, "HMG_Chain")
+			end
+			if faction == 1 then 
+				gui.play_flipbook(w3, "SR_Stilettos")
+			end
+			if faction == 2 then 
+				gui.play_flipbook(w3, "AR_Jags")
+			end
+			if faction == 3 then 
+				gui.play_flipbook(w3, "SMG_Saber")
+			end
+		else
+			ranged3 = true
+			msg.post(huntsmen[3], "ranged")
+			if faction == 0 then 
+				gui.play_flipbook(w3, "HMG")
+			end
+			if faction == 1 then 
+				gui.play_flipbook(w3, "SR")
+			end
+			if faction == 2 then 
+				gui.play_flipbook(w3, "AR")
+			end
+			if faction == 3 then 
+				gui.play_flipbook(w3, "SMG")
+			end
+		end
+	end
+	if gui.pick_node(w4, action.x, action.y) then
+		if ranged4 == true then
+			ranged4 = false
+			msg.post(huntsmen[4], "melee")
+			if faction == 0 then 
+				gui.play_flipbook(w4, "HMG_Chain")
+			end
+			if faction == 1 then 
+				gui.play_flipbook(w4, "SR_Stilettos")
+			end
+			if faction == 2 then 
+				gui.play_flipbook(w4, "AR_Jags")
+			end
+			if faction == 3 then 
+				gui.play_flipbook(w4, "SMG_Saber")
+			end
+		else
+			ranged4 = true
+			msg.post(huntsmen[4], "ranged")
+			if faction == 0 then 
+				gui.play_flipbook(w4, "HMG")
+			end
+			if faction == 1 then 
+				gui.play_flipbook(w4, "SR")
+			end
+			if faction == 2 then 
+				gui.play_flipbook(w4, "AR")
+			end
+			if faction == 3 then 
+				gui.play_flipbook(w4, "SMG")
+			end
+		end
+	end
+end
+end
+
+function on_reload(self)
+	-- Add reload-handling code here
+	-- Learn more: https://defold.com/manuals/hot-reload/
+	-- Remove this function if not needed
+end

@@ -26,8 +26,8 @@ animations {
 }
 animations {
   id: "idle_melee"
-  start_tile: 31
-  end_tile: 35
+  start_tile: 33
+  end_tile: 37
   playback: PLAYBACK_LOOP_FORWARD
   fps: 10
   flip_horizontal: 0
@@ -44,8 +44,8 @@ animations {
 }
 animations {
   id: "melee_attack"
-  start_tile: 38
-  end_tile: 41
+  start_tile: 41
+  end_tile: 44
   playback: PLAYBACK_ONCE_PINGPONG
   fps: 15
   flip_horizontal: 0
@@ -53,9 +53,9 @@ animations {
 }
 animations {
   id: "ranged_attack"
-  start_tile: 17
-  end_tile: 19
-  playback: PLAYBACK_ONCE_FORWARD
+  start_tile: 19
+  end_tile: 21
+  playback: PLAYBACK_LOOP_FORWARD
   fps: 30
   flip_horizontal: 0
   flip_vertical: 0

@@ -1,25 +1,76 @@
 local faction = -1 --0=atlas 1=mistral 2=salem 3=white fang
-local h1
-local h2
-local h3
-local h4
-local h5
-local h6
-local t1
-local t2
-local t3
-local t4
-local t5
-local t6
+local h1,h2,h3,h4,h5,h6
+local t1,t2,t3,t4,t5,t6
 local button_next
 local button_back
+local pick1, pick2, pick3, pick4, pick5, pick6
+local chosenframe1, chosenframe2, chosenframe3, chosenframe4, chosenframe5, chosenframe6
+local rw1,rw2,rw3,rw4,rw5,rw6
+local mw1,mw2,mw3,mw4,mw5,mw6
+local inv = {}
+local chosentext
+local chosen = 0
+local chosenfaction
+local squad = {false, false, false, false, false, false}
 function init(self)
 	msg.post(".", "acquire_input_focus")
 end
 
 function initiate(self)
+	squad = {false, false, false, false, false, false}
+	chosen = 0
+	rw1 = gui.get_node("rangedweapon1")
+	rw2 = gui.get_node("rangedweapon2")
+	rw3 = gui.get_node("rangedweapon3")
+	rw4 = gui.get_node("rangedweapon4")
+	rw5 = gui.get_node("rangedweapon5")
+	rw6 = gui.get_node("rangedweapon6")
+	mw1 = gui.get_node("meleeweapon1")
+	mw2 = gui.get_node("meleeweapon2")
+	mw3 = gui.get_node("meleeweapon3")
+	mw4 = gui.get_node("meleeweapon4")
+	mw5 = gui.get_node("meleeweapon5")
+	mw6 = gui.get_node("meleeweapon6")
+	inv[1] = gui.get_node("inv1")
+	inv[2] = gui.get_node("inv2")
+	inv[3] = gui.get_node("inv3")
+	inv[4] = gui.get_node("inv4")
+	inv[5] = gui.get_node("inv5")
+	inv[6] = gui.get_node("inv6")
+	inv[7] = gui.get_node("inv7")
+	inv[8] = gui.get_node("inv8")
+	inv[9] = gui.get_node("inv9")
+	inv[10] = gui.get_node("inv10")
+	inv[11] = gui.get_node("inv11")
+	inv[12] = gui.get_node("inv12")
+	inv[13] = gui.get_node("inv13")
+	inv[14] = gui.get_node("inv14")
+	inv[15] = gui.get_node("inv15")
+	inv[16] = gui.get_node("inv16")
+	inv[17] = gui.get_node("inv17")
+	inv[18] = gui.get_node("inv18")
+	inv[19] = gui.get_node("inv19")
+	inv[20] = gui.get_node("inv20")
+	inv[21] = gui.get_node("inv21")
+	inv[22] = gui.get_node("inv22")
+	inv[23] = gui.get_node("inv23")
+	inv[24] = gui.get_node("inv24")
+	chosenfaction = gui.get_node("chosen_faction")
+	chosentext = gui.get_node("text")
 	button_back = gui.get_node("button_back")
 	button_next = gui.get_node("button_start")
+	pick1 = gui.get_node("chosen1")
+	pick2 = gui.get_node("chosen2")
+	pick3 = gui.get_node("chosen3")
+	pick4 = gui.get_node("chosen4")
+	pick5 = gui.get_node("chosen5")
+	pick6 = gui.get_node("chosen6")
+	chosenframe1 = gui.get_node("chosenframe1")
+	chosenframe2 = gui.get_node("chosenframe2")
+	chosenframe3 = gui.get_node("chosenframe3")
+	chosenframe4 = gui.get_node("chosenframe4")
+	chosenframe5 = gui.get_node("chosenframe5")
+	chosenframe6 = gui.get_node("chosenframe6")
 	h1 = gui.get_node("Huntsman_1")
 	h2 = gui.get_node("Huntsman_2")
 	h3 = gui.get_node("Huntsman_3")
@@ -33,6 +84,8 @@ function initiate(self)
 	t5 = gui.get_node("text5")
 	t6 = gui.get_node("text6")
 	if faction == 0 then 
+		gui.play_flipbook(chosenfaction, "Atlas_Logo")
+		gui.set_text(chosentext, "Atlas Black Ops \n\navailable personnel")
 		gui.play_flipbook(h1, "AKX")
 		gui.play_flipbook(h2, "AKX")
 		gui.play_flipbook(h3, "AKX")
@@ -45,7 +98,21 @@ function initiate(self)
 		gui.set_text(t4, "AKX")
 		gui.set_text(t5, "AKX")
 		gui.set_text(t6, "AKX")
+		gui.play_flipbook(rw1, "HMG")
+		gui.play_flipbook(rw2, "HMG")
+		gui.play_flipbook(rw3, "HMG")
+		gui.play_flipbook(rw4, "HMG")
+		gui.play_flipbook(rw5, "HMG")
+		gui.play_flipbook(rw6, "HMG")
+		gui.play_flipbook(mw1, "HMG_Chain")
+		gui.play_flipbook(mw2, "HMG_Chain")
+		gui.play_flipbook(mw3, "HMG_Chain")
+		gui.play_flipbook(mw4, "HMG_Chain")
+		gui.play_flipbook(mw5, "HMG_Chain")
+		gui.play_flipbook(mw6, "HMG_Chain")
 	elseif faction == 1 then
+		gui.play_flipbook(chosenfaction, "MTC_Logo")
+		gui.set_text(chosentext, "MTC Mercenaries \n\npaid for, scot'n'lot")
 		gui.play_flipbook(h1, "Asker")
 		gui.play_flipbook(h2, "Asker")
 		gui.play_flipbook(h3, "Asker")
@@ -58,7 +125,21 @@ function initiate(self)
 		gui.set_text(t4, "Asker Preto")
 		gui.set_text(t5, "Asker Preto")
 		gui.set_text(t6, "Asker Preto")
+		gui.play_flipbook(rw1, "SR")
+		gui.play_flipbook(rw2, "SR")
+		gui.play_flipbook(rw3, "SR")
+		gui.play_flipbook(rw4, "SR")
+		gui.play_flipbook(rw5, "SR")
+		gui.play_flipbook(rw6, "SR")
+		gui.play_flipbook(mw1, "SR_Stilettos")
+		gui.play_flipbook(mw2, "SR_Stilettos")
+		gui.play_flipbook(mw3, "SR_Stilettos")
+		gui.play_flipbook(mw4, "SR_Stilettos")
+		gui.play_flipbook(mw5, "SR_Stilettos")
+		gui.play_flipbook(mw6, "SR_Stilettos")
 	elseif faction == 2 then
+		gui.play_flipbook(chosenfaction, "Salem_Logo")
+		gui.set_text(chosentext, "Salem's Agents \n\ntake who you need")
 		gui.play_flipbook(h1, "Rust")
 		gui.play_flipbook(h2, "Rust")
 		gui.play_flipbook(h3, "Rust")
@@ -71,7 +152,21 @@ function initiate(self)
 		gui.set_text(t4, "Rust Rhum")
 		gui.set_text(t5, "Rust Rhum")
 		gui.set_text(t6, "Rust Rhum")
+		gui.play_flipbook(rw1, "AR")
+		gui.play_flipbook(rw2, "AR")
+		gui.play_flipbook(rw3, "AR")
+		gui.play_flipbook(rw4, "AR")
+		gui.play_flipbook(rw5, "AR")
+		gui.play_flipbook(rw6, "AR")
+		gui.play_flipbook(mw1, "AR_Jags")
+		gui.play_flipbook(mw2, "AR_Jags")
+		gui.play_flipbook(mw3, "AR_Jags")
+		gui.play_flipbook(mw4, "AR_Jags")
+		gui.play_flipbook(mw5, "AR_Jags")
+		gui.play_flipbook(mw6, "AR_Jags")
 	elseif faction == 3 then
+		gui.play_flipbook(chosenfaction, "White_Fang_Logo")
+		gui.set_text(chosentext, "White Fang Splinter \n\nour most loyal fighters")
 		gui.play_flipbook(h1, "Violetta")
 		gui.play_flipbook(h2, "Violetta")
 		gui.play_flipbook(h3, "Violetta")
@@ -84,6 +179,18 @@ function initiate(self)
 		gui.set_text(t4, "Violetta Krovina")
 		gui.set_text(t5, "Violetta Krovina")
 		gui.set_text(t6, "Violetta Krovina")
+		gui.play_flipbook(rw1, "SMG")
+		gui.play_flipbook(rw2, "SMG")
+		gui.play_flipbook(rw3, "SMG")
+		gui.play_flipbook(rw4, "SMG")
+		gui.play_flipbook(rw5, "SMG")
+		gui.play_flipbook(rw6, "SMG")
+		gui.play_flipbook(mw1, "SMG_Saber")
+		gui.play_flipbook(mw2, "SMG_Saber")
+		gui.play_flipbook(mw3, "SMG_Saber")
+		gui.play_flipbook(mw4, "SMG_Saber")
+		gui.play_flipbook(mw5, "SMG_Saber")
+		gui.play_flipbook(mw6, "SMG_Saber")
 	end
 end
 
@@ -108,10 +215,93 @@ function on_input(self, action_id, action)
 		if gui.pick_node(button_back, action.x, action.y) then
 			gui.set_color(button_back, vmath.vector4(255/255, 239/255, 122/255, 1))
 			msg.post("/go#main", hash("back_squad"))
+			msg.post(".", "release_input_focus")
 		end
-
+		if gui.pick_node(button_next, action.x, action.y) then --removed the need to select squad for now, will return it later
+			gui.set_color(button_back, vmath.vector4(255/255, 239/255, 122/255, 1))
+			msg.post("/go#main", hash("deploy_squad"), {fac = faction, squad = squad})
+			msg.post(".", "release_input_focus")
+		end
 		
-	end
+		if gui.pick_node(pick1, action.x, action.y) then
+			if squad[1] == false and chosen < 3 then
+				gui.play_flipbook(pick1, "ticked")
+				gui.play_flipbook(chosenframe1, "frame_selected")
+				chosen = chosen + 1
+				squad[1] = true
+			elseif squad[1] == true then
+				gui.play_flipbook(pick1, "emptyspace")
+				gui.play_flipbook(chosenframe1, "frame_unselected")
+				chosen = chosen - 1
+				squad[1] = false
+			end
+		end
+		if gui.pick_node(pick2, action.x, action.y) then
+			if squad[2] == false and chosen < 3 then
+				gui.play_flipbook(pick2, "ticked")
+				gui.play_flipbook(chosenframe2, "frame_selected")
+				chosen = chosen + 1
+				squad[2] = true
+			elseif squad[2] == true then
+				gui.play_flipbook(pick2, "emptyspace")
+				gui.play_flipbook(chosenframe2, "frame_unselected")
+				chosen = chosen - 1
+				squad[2] = false
+			end
+		end
+		if gui.pick_node(pick3, action.x, action.y) then
+			if squad[3] == false and chosen < 3 then
+				gui.play_flipbook(pick3, "ticked")
+				gui.play_flipbook(chosenframe3, "frame_selected")
+				chosen = chosen + 1
+				squad[3] = true
+			elseif squad[3] == true then
+				gui.play_flipbook(pick3, "emptyspace")
+				gui.play_flipbook(chosenframe3, "frame_unselected")
+				chosen = chosen - 1
+				squad[3] = false
+			end
+		end
+		if gui.pick_node(pick4, action.x, action.y) then
+			if squad[4] == false  and chosen < 3 then
+				gui.play_flipbook(pick4, "ticked")
+				gui.play_flipbook(chosenframe4, "frame_selected")
+				chosen = chosen + 1
+				squad[4] = true
+			elseif squad[4] == true then
+				gui.play_flipbook(pick4, "emptyspace")
+				gui.play_flipbook(chosenframe4, "frame_unselected")
+				chosen = chosen - 1
+				squad[4] = false
+			end
+		end
+		if gui.pick_node(pick5, action.x, action.y) then
+			if squad[5] == false and chosen < 3 then
+				gui.play_flipbook(pick5, "ticked")
+				gui.play_flipbook(chosenframe5, "frame_selected")
+				chosen = chosen + 1
+				squad[5] = true
+			elseif squad[5] == true then
+				gui.play_flipbook(pick5, "emptyspace")
+				gui.play_flipbook(chosenframe5, "frame_unselected")
+				chosen = chosen - 1
+				squad[5] = false
+			end
+		end
+		if gui.pick_node(pick6, action.x, action.y) then
+			if squad[6] == false and chosen < 3 then
+				gui.play_flipbook(pick6, "ticked")
+				gui.play_flipbook(chosenframe6, "frame_selected")
+				chosen = chosen + 1
+				squad[6] = true
+			elseif squad[6] == true then
+				gui.play_flipbook(pick6, "emptyspace")
+				gui.play_flipbook(chosenframe6, "frame_unselected")
+				chosen = chosen - 1
+				squad[6] = false
+			end
+		end
+	end	
 end
 
 function on_reload(self)
